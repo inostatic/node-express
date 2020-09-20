@@ -1,1 +1,20 @@
-[{"title":"React","price":"20000","url":"https://инквизиция-в.рф/pluginfile.php/2548/course/overviewfiles/react%404x.png","id":"202bb85c-4bf3-4961-bbd9-5af8f366514a"},{"title":"Vue","price":"15000","url":"https://pbs.twimg.com/media/Di-8i0rXcAATISU.jpg","id":"341d19d9-77fb-4ea4-b34b-4ef5a0102a31"}]
+[
+  {
+    "title": "React",
+    "price": "20000",
+    "url": "https://инквизиция-в.рф/pluginfile.php/2548/course/overviewfiles/react%404x.png",
+    "id": "202bb85c-4bf3-4961-bbd9-5af8f366514a"
+  },
+  {
+    "title": "Vue",
+    "price": "15000",
+    "url": "https://pbs.twimg.com/media/Di-8i0rXcAATISU.jpg",
+    "id": "341d19d9-77fb-4ea4-b34b-4ef5a0102a31"
+  },
+  {
+    "title": "MVC для веб: проще некуда(7)",
+    "price": "123",
+    "url": "https://i.stack.imgur.com/d6ukR.png",
+    "id": "8de90bad-5b6c-4a26-a1cc-5012dd697194"
+  }
+]
