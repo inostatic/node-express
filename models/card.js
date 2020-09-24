@@ -10,8 +10,7 @@ const p = path.join(
 class Card {
     static async add(course) {
         const card = await Card.fetch()
-
-        const idx = card.courses.findIndex(c => c.id === course.id)
+        const idx = card.courses.findIndex(c => String(c._id) === String(course._id))
         const candidate = card.courses[idx]
 
         if (candidate) {
@@ -49,11 +48,10 @@ class Card {
     static async remove(id) {
         const card = await Card.fetch()
 
-        const idx = card.courses.findIndex(c => c.id === id)
+        const idx = card.courses.findIndex(c => c._id === id)
         const course = card.courses[idx]
-
         if(course.count === 1) {
-            card.courses = card.courses.filter(c => c.id !== id)
+            card.courses = card.courses.filter(c => c._id !== id)
         } else {
             card.courses[idx].count--
         }
