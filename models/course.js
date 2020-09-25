@@ -9,7 +9,11 @@ const course = new mongoose.Schema({
         type: Number,
         required: true
     },
-    url: String
+    url: String,
+    userId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    }
 })
 
 module.exports = mongoose.model('Course', course)

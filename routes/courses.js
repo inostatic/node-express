@@ -18,6 +18,15 @@ router.get('/', async (req, res) => {
     })
 })
 
+router.post('/remove', async (req, res) => {
+    try {
+        await Course.deleteOne({_id: req.body.id})
+        res.redirect('/courses')
+    } catch (e) {
+        console.log(e)
+    }
+})
+
 router.get('/:id/edit', async (req, res) => {
     if (!req.query.allow) {
         return res.redirect('/')
@@ -26,7 +35,8 @@ router.get('/:id/edit', async (req, res) => {
     const course = {
         title: result.title,
         price: result.price,
-        url: result.url
+        url: result.url,
+        _id: result._id
     }
     res.render('edit', {
         title: `Edit ${course.title}`,
@@ -35,7 +45,7 @@ router.get('/:id/edit', async (req, res) => {
 })
 
 router.get('/:id', async (req, res) => {
-    const result = await Course.findById(req.params.id)
+    const result = await Course.findById(req.params.id).select('title price url')
     const course = {
         title: result.title,
         price: result.price,
