@@ -5,6 +5,7 @@ const exphbs = require('express-handlebars')
 const homeRoutes = require('./routes/home')
 const cardRoutes = require('./routes/card')
 const addRoutes = require('./routes/add')
+const ordersRoutes = require('./routes/orders')
 const coursesRoutes = require('./routes/courses')
 const User = require('./models/user')
 
@@ -21,7 +22,7 @@ app.set('views', 'views')
 
 app.use( async (req, res, next) => {
     try {
-        const user = await User.findById('5f6de2f8f83f8b2680a31f66')
+        const user = await User.findById('5f73110855da5c1640806a71')
         req.user = user
         next()
     } catch (e) {
@@ -34,6 +35,7 @@ app.use(express.urlencoded({extended: true}))
 app.use('/', homeRoutes)
 app.use('/courses', coursesRoutes)
 app.use('/add', addRoutes)
+app.use('/orders', ordersRoutes)
 
 const PORT = process.env.PORT || 3000
 
