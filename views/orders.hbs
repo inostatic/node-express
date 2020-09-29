@@ -1,4 +1,5 @@
-<h1>My Orders</h1>
+<h1>{{title}}</h1>
+
 
 {{#if orders.length}}
     {{#each orders}}
@@ -10,16 +11,14 @@
               Order <small>{{_id}}</small>
             </span>
                         <p class="date">{{date}}</p>
-                        <p><em>{{user.name}}</em> ({{user.email}})</p>
-
+                        <p><em>{{user.name}}</em> ({{user.userId.email}})</p>
                         <ol>
                             {{#each courses}}
                                 <li>
-                                    {{course}} (x<strong>{{count}}</strong>)
+                                    {{course.title}} (x<strong>{{count}}</strong>)
                                 </li>
                             {{/each}}
                         </ol>
-
                         <hr>
 
                         <p>Price: <span class="price">{{price}}</span></p>

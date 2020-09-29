@@ -12,12 +12,12 @@ router.get('/', async (req, res) => {
             isOrder: true,
             title: 'Orders',
             orders: orders.map(o => {
-                return {
+                return JSON.parse(JSON.stringify({
                     ...o._doc,
                     price: o.courses.reduce((total, c) => {
                         return total += c.count * c.course.price
                     }, 0)
-                }
+                }))
             })
         })
     } catch (e) {
