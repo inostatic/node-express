@@ -1,8 +1,8 @@
 const {Router} = require('express')
-const auth = require('../middleware/auth')
 const Course = require('../models/course')
-
+const auth = require('../middleware/auth')
 const router = Router()
+
 router.get('/', async (req, res) => {
     const result = await Course.find()
     const courses = result.reduce((a, e) => [...a, {
@@ -39,7 +39,7 @@ router.get('/:id/edit', auth, async (req, res) => {
         url: result.url,
         _id: result._id
     }
-    res.render('edit', auth,{
+    res.render('edit',{
         title: `Edit ${course.title}`,
         course
     })
@@ -59,7 +59,7 @@ router.get('/:id', async (req, res) => {
     })
 })
 
-router.post('/edit', async (req, res) => {
+router.post('/edit', auth, async (req, res) => {
     const {id} = req.body
     delete req.body.id
 
