@@ -1,4 +1,5 @@
 const express = require('express')
+const keys = require('./keys')
 const path = require('path')
 const csrf = require('csurf')
 const flash = require('connect-flash')
@@ -16,7 +17,6 @@ const authRoutes = require('./routes/auth')
 const userMiddleware = require('./middleware/user')
 
 
-const MONGODB_URI = `mongodb+srv://Stanislav:7TVOvXCo7X1KGx4L@cluster0.aouwu.mongodb.net/shop`
 const app = express()
 
 const hbs = exphbs.create({
@@ -25,7 +25,7 @@ const hbs = exphbs.create({
 })
 const store = new MongoStore({
     collection: 'session',
-    uri: MONGODB_URI
+    uri: keys.MONGODB_URI
 
 })
 
@@ -37,7 +37,7 @@ app.set('views', 'views')
 app.use(express.static(path.join(__dirname,'public')))
 app.use(express.urlencoded({extended: true}))
 app.use(session({
-    secret: 'some secret value',
+    secret: keys.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
     store
@@ -62,7 +62,7 @@ app.use('/card', cardRoutes)
 
 async function start() {
     try {
-        await mongoose.connect(MONGODB_URI, {
+        await mongoose.connect(keys.MONGODB_URI, {
             useNewUrlParser: true,
             useUnifiedTopology: true,
             useFindAndModify: false
