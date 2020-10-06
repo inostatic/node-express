@@ -11,7 +11,7 @@
                 <p class="alert">{{loginError}}</p>
             {{/if}}
             <h1>Войти в магазин</h1>
-            <form action="/auth/login" method="POST">
+            <form action="/auth/login" method="POST" >
                 <div class="input-field">
                     <input id="email" name="email" type="email" class="validate" required>
                     <label for="email">Email</label>
@@ -33,7 +33,7 @@
                 <p class="alert">{{registerError}}</p>
             {{/if}}
             <h1>Создать аккаунт</h1>
-            <form action="/auth/register" method="POST">
+            <form action="/auth/register" method="POST" >
                 <div class="input-field">
                     <input id="name" name="name" type="text" class="validate" required>
                     <label for="name">Name</label>
