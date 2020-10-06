@@ -1,4 +1,5 @@
 const express = require('express')
+const keys = require('./keys')
 const path = require('path')
 const csrf = require('csurf')
 const flash = require('connect-flash')
@@ -13,56 +14,62 @@ const addRoutes = require('./routes/add')
 const ordersRoutes = require('./routes/orders')
 const coursesRoutes = require('./routes/courses')
 const authRoutes = require('./routes/auth')
+const profileRoutes = require('./routes/profile')
 const userMiddleware = require('./middleware/user')
+const fileMiddleware = require('./middleware/file')
 
 
-const MONGODB_URI = `mongodb+srv://Stanislav:7TVOvXCo7X1KGx4L@cluster0.aouwu.mongodb.net/shop`
+const PORT = process.env.PORT || 3000
+
+
+const errorHandler = require('./middleware/error')
+
 const app = express()
-
 const hbs = exphbs.create({
     defaultLayout: 'main',
     extname: 'hbs'
 })
+
 const store = new MongoStore({
     collection: 'session',
-    uri: MONGODB_URI
+    uri: keys.MONGODB_URI
 
 })
-
 app.engine('hbs', hbs.engine)
 app.set('view engine', 'hbs')
+
+
 app.set('views', 'views')
-
-
 app.use(express.static(path.join(__dirname,'public')))
+app.use('/images', express.static(path.join(__dirname, 'images')))
 app.use(express.urlencoded({extended: true}))
 app.use(session({
-    secret: 'some secret value',
+    secret: keys.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
     store
 }))
-app.use(userMiddleware)
+app.use(fileMiddleware.single('avatar'))
 app.use(csrf())
 app.use(flash())
 app.use(varMiddleware)
+app.use(userMiddleware)
 
 app.use('/', homeRoutes)
 app.use('/courses', coursesRoutes)
 app.use('/add', addRoutes)
 app.use('/orders', ordersRoutes)
 app.use('/auth', authRoutes)
-
-const PORT = process.env.PORT || 3000
-
-
-
 app.use('/card', cardRoutes)
+
+app.use('/profile', profileRoutes)
+
+app.use(errorHandler)
 
 
 async function start() {
     try {
-        await mongoose.connect(MONGODB_URI, {
+        await mongoose.connect(keys.MONGODB_URI, {
             useNewUrlParser: true,
             useUnifiedTopology: true,
             useFindAndModify: false

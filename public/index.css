@@ -53,3 +53,8 @@
 h1 {
     text-align: center;
 }
+
+.avatar {
+    max-width: 300px;
+    height: auto;
+}
